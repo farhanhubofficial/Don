@@ -138,12 +138,13 @@ const Header = () => {
         {/* User Icon with Dropdown (visible on all screens) */}
         <div className="relative hidden lg:block">
           {/* If the user is logged in, show the first letter of the displayName */}
-          {user && user.displayName ? (
+          {user ? (
             <div
               onClick={toggleDropdown}
               className="cursor-pointer text-xl bg-blue-500 text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-blue-600"
             >
-              {user.displayName.charAt(0)}
+              {/* Check if displayName exists before calling charAt */}
+              {user.displayName ? user.displayName.charAt(0) : 'U'}
             </div>
           ) : (
             <FaUserAlt onClick={toggleDropdown} className="cursor-pointer text-xl hover:text-gray-500" />
@@ -220,17 +221,40 @@ const Header = () => {
           <Link to="/products" className="block py-2 px-4 text-gray-700 hover:bg-gray-100">Products</Link>
 
           <div className="relative">
-          {/* If the user is logged in, show the first letter of the displayName */}
-          {user && user.displayName ? (
-            <div
-              onClick={toggleDropdown}
-              className="cursor-pointer text-xl bg-blue-500 text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-blue-600"
-            >
-              {user.displayName.charAt(0)}
-            </div>
-          ) : (
-            <FaUserAlt onClick={toggleDropdown} className="cursor-pointer text-xl hover:text-gray-500" />
-          )}
+            {/* If the user is logged in, show the first letter of the displayName */}
+            {user ? (
+              <div
+                onClick={toggleDropdown}
+                className="cursor-pointer text-xl bg-blue-500 text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-blue-600"
+              >
+                {user.displayName ? user.displayName.charAt(0) : 'U'}
+              </div>
+            ) : (
+              <FaUserAlt onClick={toggleDropdown} className="cursor-pointer text-xl hover:text-gray-500" />
+            )}
+
+            {/* Dropdown Menu */}
+            {showDropdown && (
+              <div className="absolute z-50 right-0 mt-2 bg-white border rounded shadow-lg p-4 w-32">
+                {user ? (
+                  <button
+                    onClick={handleSignOut}
+                    className="block text-center bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600"
+                  >
+                    Log Out
+                  </button>
+                ) : (
+                  <>
+                    <Link to="/signup" className="block mb-2 text-center bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">
+                      Sign Up
+                    </Link>
+                    <Link to="/login" className="block text-center bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">
+                      Login
+                    </Link>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}
