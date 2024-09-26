@@ -1,5 +1,5 @@
 import React from 'react'
-import AboutImage from '../Images/img1.avif'
+import AboutImage from '../images/img1.avif'
 import { Link } from 'react-router-dom'
 import { FaChevronRight } from "react-icons/fa6";
 
